@@ -15,7 +15,7 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T>{
 
     public MutiTypeAdapter(Context context, List<T> datas,MutiTypeInterface mutiTypeInterface) {
         super(context, datas, -1);
-        this.mMultiItemTypeSupport =mutiTypeInterface;
+        mMultiItemTypeSupport =mutiTypeInterface;
     }
 
 
@@ -31,7 +31,7 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T>{
     @Override
     public int getItemViewType(int position) {
         if (mMultiItemTypeSupport !=null){
-            mMultiItemTypeSupport.getItemViewType(position,dataList.get(position));
+            return mMultiItemTypeSupport.getItemViewType(position, mDatas.get(position));
         }
         return super.getItemViewType(position);
     }

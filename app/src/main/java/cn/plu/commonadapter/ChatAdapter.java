@@ -10,66 +10,55 @@ import java.util.List;
  * Created by lily on 15-12-8.
  */
 public class ChatAdapter extends MutiTypeAdapter<Item> {
-    public ChatAdapter(Context context, List<Item> datas) {
-        super(context, datas, new MutiTypeInterface<Item>() {
-            /*@Override
-            public int getItemType(int pos, Item item) {
-                if (item.isComMeg()) {
-                    return 0;
-                }else{
-                    return 1;
-                }
-            }
-
+    public ChatAdapter(Context context, List<Item> datas)
+    {
+        super(context, datas, new MutiTypeInterface<Item>()
+        {
             @Override
-            public int getLayoutRes(int pos, Item item) {
-                if (item.isComMeg()) {
+            public int getLayoutId(int position, Item msg)
+            {
+                if (msg.isComMeg())
+                {
                     return R.layout.item;
-                }else{
-
-                    return R.layout.item1;
                 }
-            }
-*/
-
-            @Override
-            public int getLayoutId(int position, Item item) {
-                if (item.isComMeg()) {
-                    return R.layout.item;
-                }else{
-
-                    return R.layout.item1;
-                }
+                return R.layout.item1;
             }
 
             @Override
-            public int getViewTypeCount() {
+            public int getViewTypeCount()
+            {
                 return 2;
             }
-
             @Override
-            public int getItemViewType(int postion, Item item) {
-                if (item.isComMeg()) {
-                    return 0;
-                }else{
-                    return 1;
+            public int getItemViewType(int postion, Item msg)
+            {
+                if (msg.isComMeg())
+                {
+                    return Item.RECIEVE_MSG;
                 }
+                return Item.SEND_MSG;
             }
         });
     }
 
     @Override
-    public void convert(CommonViewHolder viewHolder, Item t) {
-        Log.v("TAG", "--------CONVERT Item IS " + t + "  comntent is " + t.getContent());
-        switch (viewHolder.getLayoutRes()){
+    public void convert(CommonViewHolder holder, Item chatMessage)
+    {
+
+        switch (holder.getLayoutId())
+        {
             case R.layout.item:
-                viewHolder.setText(R.id.textview,t.getContent());
+                holder.setText(R.id.textview, chatMessage.getContent());
+               // holder.setText(R.id.textview, chatMessage.getName());
+              /*  holder.setText(R.id.chat_from_name, chatMessage.getName());
+                holder.setImageResource(R.id.chat_from_icon, chatMessage.getIcon());*/
                 break;
             case R.layout.item1:
-                viewHolder.setText(R.id.textview1,t.getContent());
+                holder.setText(R.id.textview, chatMessage.getContent());
+               // holder.setText(R.id.textview, chatMessage.getName());
+              /*  holder.setText(R.id.chat_send_name, chatMessage.getName());
+                holder.setImageResource(R.id.chat_send_icon, chatMessage.getIcon());*/
                 break;
         }
-
-
     }
 }

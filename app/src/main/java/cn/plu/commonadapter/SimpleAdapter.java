@@ -16,10 +16,10 @@ public class SimpleAdapter extends CommonAdapter {
         super(context, datas, layoutRes);
     }
 
-    @Override
+   /* @Override
     public int getLayoutRes(int type) {
         return R.layout.item;
-    }
+    }*/
 
     @Override
     public void convert(CommonViewHolder viewHolder, Object o) {

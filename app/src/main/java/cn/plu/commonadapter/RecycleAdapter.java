@@ -36,6 +36,10 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
         return layoutRes;
     }
 
+
+
+
+
     @Override
     public RecycleViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         return new RecycleViewHolder(inflateItemByType(i,viewGroup));
@@ -45,14 +49,13 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
     public void onBindViewHolder(RecycleViewHolder recycleViewHolder, int i) {
             int type=getItemViewType(i);
             T t=getItem(i);
-
-
             bindData(recycleViewHolder,t,i,type);
     }
 
     @Override
     public int getItemCount() {
-        return dataList==null?0:dataList.size();
+        int count=dataList==null?0:dataList.size();
+        return count;
     }
 
     public abstract void bindData(RecycleViewHolder recycleViewHolder,T item,int pos,int type);

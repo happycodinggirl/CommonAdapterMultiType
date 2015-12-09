@@ -3,13 +3,15 @@ package cn.plu.commonadapter;
 import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends ListActivity{
+public class MainActivity extends AppCompatActivity{
 
     private ArrayList<Item> mDatas;
 
@@ -23,14 +25,14 @@ public class MainActivity extends ListActivity{
         //ListView listview= (ListView) findViewById(R.id.listview);
        /* CommonAdapter mutiTypeAdapter=new MutiTypeAdapter(MainActivity.this,dataList);
         listview.setAdapter(mutiTypeAdapter);*/
-      ChatAdapter chatAdapter=new ChatAdapter(MainActivity.this, mDatas);
-        getListView().setAdapter(chatAdapter);
+     /* ChatAdapter chatAdapter=new ChatAdapter(MainActivity.this, mDatas);
+        getListView().setAdapter(chatAdapter);*/
         //listview.setAdapter(chatAdapter);
-       /* RecyclerView recyclerView= (RecyclerView) findViewById(R.id.recycleview);
+        RecyclerView recyclerView= (RecyclerView) findViewById(R.id.recycleview);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MainActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-       RecycleAdapter<String> adapter=new RecycleAdapter<String>(MainActivity.this,dataList) {
+       /*RecycleAdapter<String> adapter=new RecycleAdapter<String>(MainActivity.this,dataList) {
            @Override
            public void bindData(RecycleViewHolder recycleViewHolder, String item, int pos,int type) {
                recycleViewHolder.setText(R.id.textview,item);
@@ -41,9 +43,10 @@ public class MainActivity extends ListActivity{
            public int getLayoutRes(int type) {
                return R.layout.item;
            }
-       };
-        recyclerView.setAdapter(adapter);
-*/
+       };*/
+        SimpleRecycleViewAdapter simpleRecycleViewAdapter=new SimpleRecycleViewAdapter(MainActivity.this,mDatas);
+        recyclerView.setAdapter(simpleRecycleViewAdapter);
+
 
 
         /*CommonAdapter adapter=new SimpleAdapter(MainActivity.this,R.layout.item,dataList);

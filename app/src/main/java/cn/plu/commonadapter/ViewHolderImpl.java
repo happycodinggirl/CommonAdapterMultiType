@@ -14,17 +14,28 @@ import android.widget.TextView;
  * Created by lily on 15-12-8.
  */
 public class ViewHolderImpl {
-    View convertView;
-    SparseArray<View> viewArray;
-    LayoutInflater inflater;
-    public ViewHolderImpl(CommonViewHolder commonViewHolder,Context context,View convertView,ViewGroup viewGroup,int layoutRes) {
-        this.convertView = convertView;
-        inflater= LayoutInflater.from(context);
-       // this.convertView=inflater.inflate(layoutRes,viewGroup,false);
+    private SparseArray<View> viewArray;
+    //private int mPosition;
+    private View mConvertView;
+    private Context mContext;
+    private int mLayoutId;
 
-        this.convertView.setTag(commonViewHolder);
-        this.viewArray=new SparseArray<>();
+    public ViewHolderImpl(Holderable holderable,Context context, ViewGroup parent, int layoutId,
+                            int position)
+    {
 
+        mContext = context;
+        mLayoutId = layoutId;
+        //	this.mPosition = position;
+        this.viewArray = new SparseArray<View>();
+        mConvertView = LayoutInflater.from(context).inflate(layoutId, parent,
+                false);
+        mConvertView.setTag(holderable);
+    }
+
+    public ViewHolderImpl(View mConvertView) {
+        this.mConvertView = mConvertView;
+        this.viewArray = new SparseArray<View>();
     }
 
     boolean hasViewStub;
@@ -34,7 +45,7 @@ public class ViewHolderImpl {
     public <T extends View> T findView(int resId){
         View view=viewArray.get(resId);
         if (view==null){
-            view=convertView.findViewById(resId);
+            view=mConvertView.findViewById(resId);
             viewArray.put(resId,view);
             return (T) view;
         }
@@ -44,7 +55,6 @@ public class ViewHolderImpl {
     public void setText(int resId,String content){
         TextView textView=findView(resId);
         Log.v("TAG","-----TEXTVIEW IS "+textView);
-        FragmentActivity  fragmentActivity;
         textView.setText(content);
     }
 
@@ -54,7 +64,12 @@ public class ViewHolderImpl {
     }
 
     public View getConvertView() {
-        return convertView;
+        return mConvertView;
+    }
+
+
+    public int getLayoutId(){
+        return mLayoutId;
     }
 
     public int getArraySize(){

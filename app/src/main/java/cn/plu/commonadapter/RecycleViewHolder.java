@@ -13,7 +13,7 @@ public class RecycleViewHolder extends RecyclerView.ViewHolder {
 
     public RecycleViewHolder(View itemView) {
         super(itemView);
-       // viewHolderImpl=new ViewHolderImpl(itemView);
+       viewHolderImpl=new ViewHolderImpl(itemView);
     }
 
     public void setText(int resId,String content){
