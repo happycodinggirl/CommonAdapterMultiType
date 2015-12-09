@@ -1,4 +1,4 @@
-package cn.plu.commonadapter;
+package cn.plu.commonadapter.commonadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleViewHolder> {
 
     List<T> dataList;
-    int layoutRes;
+
     LayoutInflater inflater;
 
     public RecycleAdapter(Context context,List<T> dataList) {
@@ -27,29 +27,16 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
        return dataList.get(pos);
     }
 
-    public View inflateItemByType(int type,ViewGroup viewGroup){
-        int layoutRes=getLayoutRes(type);
-        return inflater.inflate(layoutRes,viewGroup,false);
-    }
-
-    public int getLayoutRes(int type){
-        return layoutRes;
-    }
-
-
-
-
+    public abstract int getLayoutRes(int type);
 
     @Override
     public RecycleViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return new RecycleViewHolder(inflateItemByType(i,viewGroup));
+        return new RecycleViewHolder(inflater.inflate(getLayoutRes(i), viewGroup, false),getLayoutRes(i));
     }
 
     @Override
     public void onBindViewHolder(RecycleViewHolder recycleViewHolder, int i) {
-            int type=getItemViewType(i);
-            T t=getItem(i);
-            bindData(recycleViewHolder,t,i,type);
+            bindData(recycleViewHolder,getItem(i));
     }
 
     @Override
@@ -58,5 +45,5 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
         return count;
     }
 
-    public abstract void bindData(RecycleViewHolder recycleViewHolder,T item,int pos,int type);
+    public abstract void bindData(RecycleViewHolder recycleViewHolder,T item);
 }

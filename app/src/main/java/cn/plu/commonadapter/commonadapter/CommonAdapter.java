@@ -1,4 +1,4 @@
-package cn.plu.commonadapter;
+package cn.plu.commonadapter.commonadapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -50,9 +50,9 @@ public  abstract  class CommonAdapter<T> extends BaseAdapter {
     {
         CommonViewHolder holder = CommonViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
-        convert(holder, getItem(position));
+        bindData(holder, getItem(position));
         return holder.getConvertView();
     }
 
-    public abstract void convert(CommonViewHolder holder, T t);
+    public abstract void bindData(CommonViewHolder holder, T t);
 }

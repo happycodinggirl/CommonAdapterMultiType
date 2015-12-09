@@ -1,4 +1,4 @@
-package cn.plu.commonadapter;
+package cn.plu.commonadapter.commonadapter;
 
 import android.content.Context;
 import android.view.View;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by lily on 15-12-8.
  */
-public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T>{
+public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T> {
 
     MutiTypeInterface<T> mMultiItemTypeSupport;
 
@@ -17,6 +17,8 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T>{
         super(context, datas, -1);
         mMultiItemTypeSupport =mutiTypeInterface;
     }
+
+
 
 
 
@@ -45,7 +47,7 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T>{
                 getItem(position));
         CommonViewHolder viewHolder = CommonViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
-        convert(viewHolder, getItem(position));
+        bindData(viewHolder, getItem(position));
         return viewHolder.getConvertView();
     }
 

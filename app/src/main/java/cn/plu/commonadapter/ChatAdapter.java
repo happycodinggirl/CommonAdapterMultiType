@@ -2,9 +2,12 @@ package cn.plu.commonadapter;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
+
+import cn.plu.commonadapter.commonadapter.CommonViewHolder;
+import cn.plu.commonadapter.commonadapter.MutiTypeAdapter;
+import cn.plu.commonadapter.commonadapter.MutiTypeInterface;
 
 /**
  * Created by lily on 15-12-8.
@@ -17,7 +20,7 @@ public class ChatAdapter extends MutiTypeAdapter<Item> {
             @Override
             public int getLayoutId(int position, Item msg)
             {
-                if (msg.isComMeg())
+                if (position%2==0)
                 {
                     return R.layout.item;
                 }
@@ -42,7 +45,7 @@ public class ChatAdapter extends MutiTypeAdapter<Item> {
     }
 
     @Override
-    public void convert(CommonViewHolder holder, Item chatMessage)
+    public void bindData(CommonViewHolder holder, Item chatMessage)
     {
 
         switch (holder.getLayoutId())

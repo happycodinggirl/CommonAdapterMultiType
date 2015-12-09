@@ -1,22 +1,14 @@
-package cn.plu.commonadapter;
+package cn.plu.commonadapter.commonadapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.text.util.Linkify;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.widget.Checkable;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 
 /**
@@ -25,25 +17,12 @@ import android.widget.TextView;
 public class CommonViewHolder implements  Holderable{
 
     ViewHolderImpl viewHolderImpl;
-    /*private SparseArray<View> mViews;
-    //private int mPosition;
-    private View mConvertView;
-    private Context mContext;
-    private int mLayoutId;
-*/
+
     public CommonViewHolder(Context context, ViewGroup parent, int layoutId,
                       int position)
     {
-
         viewHolderImpl=new ViewHolderImpl(CommonViewHolder.this,context,parent,layoutId,position);
 
-       /* mContext = context;
-        mLayoutId = layoutId;
-        //	this.mPosition = position;
-        this.mViews = new SparseArray<View>();
-        mConvertView = LayoutInflater.from(context).inflate(layoutId, parent,
-                false);
-        mConvertView.setTag(this);*/
     }
 
     public static CommonViewHolder get(Context context, View convertView,
@@ -60,10 +39,6 @@ public class CommonViewHolder implements  Holderable{
         }
     }
 
-	/*public int getPosition()
-	{
-		return mPosition;
-	}*/
 
     public int getLayoutId(){
         return viewHolderImpl.getLayoutId();
@@ -78,20 +53,13 @@ public class CommonViewHolder implements  Holderable{
      */
     public <T extends View> T findView(int viewId)
     {
-        /*View view = mViews.get(viewId);
-        if (view == null)
-        {
-            view = mConvertView.findViewById(viewId);
-            mViews.put(viewId, view);
-        }
-        return (T) view;*/
         return viewHolderImpl.findView(viewId);
     }
 
     public View getConvertView()
     {
         return viewHolderImpl.getConvertView();
-       // return mConvertView;
+
     }
 
     /**
@@ -101,110 +69,84 @@ public class CommonViewHolder implements  Holderable{
      * @param text
      * @return
      */
-    public void setText(int viewId, String text)
+    public CommonViewHolder setText(int viewId, String text)
     {
-
          viewHolderImpl.setText(viewId,text);
-        /*TextView tv = findView(viewId);
-        tv.setText(text);
-        return this;*/
+        return this;
+
     }
 
     public CommonViewHolder setImageResource(int viewId, int resId)
     {
-        ImageView view = findView(viewId);
-        view.setImageResource(resId);
+        viewHolderImpl.setImageResource(viewId,resId);
         return this;
     }
 
     public CommonViewHolder setImageBitmap(int viewId, Bitmap bitmap)
     {
-        ImageView view = findView(viewId);
-        view.setImageBitmap(bitmap);
+        viewHolderImpl.setImageBitmap(viewId,bitmap);
         return this;
     }
 
     public CommonViewHolder setImageDrawable(int viewId, Drawable drawable)
     {
-        ImageView view = findView(viewId);
-        view.setImageDrawable(drawable);
+        viewHolderImpl.setImageDrawable(viewId,drawable);
         return this;
     }
 
     public CommonViewHolder setBackgroundColor(int viewId, int color)
     {
-        View view = findView(viewId);
-        view.setBackgroundColor(color);
+        viewHolderImpl.setBackgroundColor(viewId,color);
         return this;
     }
 
     public CommonViewHolder setBackgroundRes(int viewId, int backgroundRes)
     {
-        View view = findView(viewId);
-        view.setBackgroundResource(backgroundRes);
+       viewHolderImpl.setBackgroundRes(viewId,backgroundRes);
         return this;
     }
 
     public CommonViewHolder setTextColor(int viewId, int textColor)
     {
-        TextView view = findView(viewId);
-        view.setTextColor(textColor);
+        viewHolderImpl.setTextColor(viewId,textColor);
         return this;
     }
 
     public CommonViewHolder setTextColorRes(int viewId, int textColorRes)
     {
-        /*TextView view = findView(viewId);
-        view.setTextColor(mContext.getResources().getColor(textColorRes));*/
+        viewHolderImpl.setTextColorRes(viewId,textColorRes);
         return this;
     }
 
     @SuppressLint("NewApi")
     public CommonViewHolder setAlpha(int viewId, float value)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-        {
-            findView(viewId).setAlpha(value);
-        } else
-        {
-            // Pre-honeycomb hack to set Alpha value
-            AlphaAnimation alpha = new AlphaAnimation(value, value);
-            alpha.setDuration(0);
-            alpha.setFillAfter(true);
-            findView(viewId).startAnimation(alpha);
-        }
+       viewHolderImpl.setAlpha(viewId,value);
+
         return this;
     }
 
     public CommonViewHolder setVisible(int viewId, boolean visible)
     {
-        View view = findView(viewId);
-        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        viewHolderImpl.setVisible(viewId,visible);
         return this;
     }
 
     public CommonViewHolder linkify(int viewId)
     {
-        TextView view = findView(viewId);
-        Linkify.addLinks(view, Linkify.ALL);
+        viewHolderImpl.linkify(viewId);
         return this;
     }
 
     public CommonViewHolder setTypeface(Typeface typeface, int... viewIds)
     {
-        for (int viewId : viewIds)
-        {
-            TextView view = findView(viewId);
-            view.setTypeface(typeface);
-            view.setPaintFlags(view.getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
-        }
+        viewHolderImpl.setTypeface(typeface,viewIds);
         return this;
     }
 
     public CommonViewHolder setProgress(int viewId, int progress)
     {
-        ProgressBar view = findView(viewId);
-        view.setProgress(progress);
+        viewHolderImpl.setProgress(viewId,progress);
         return this;
     }
 
@@ -240,22 +182,19 @@ public class CommonViewHolder implements  Holderable{
 
     public CommonViewHolder setTag(int viewId, Object tag)
     {
-        View view = findView(viewId);
-        view.setTag(tag);
+        viewHolderImpl.setTag(viewId,tag);
         return this;
     }
 
     public CommonViewHolder setTag(int viewId, int key, Object tag)
     {
-        View view = findView(viewId);
-        view.setTag(key, tag);
+        viewHolderImpl.setTag(viewId,key,tag);
         return this;
     }
 
     public CommonViewHolder setChecked(int viewId, boolean checked)
     {
-        Checkable view = (Checkable) findView(viewId);
-        view.setChecked(checked);
+        viewHolderImpl.setChecked(viewId,checked);
         return this;
     }
 
@@ -265,24 +204,21 @@ public class CommonViewHolder implements  Holderable{
     public CommonViewHolder setOnClickListener(int viewId,
                                          View.OnClickListener listener)
     {
-        View view = findView(viewId);
-        view.setOnClickListener(listener);
+        viewHolderImpl.setOnClickListener(viewId,listener);
         return this;
     }
 
     public CommonViewHolder setOnTouchListener(int viewId,
                                          View.OnTouchListener listener)
     {
-        View view = findView(viewId);
-        view.setOnTouchListener(listener);
+        viewHolderImpl.setOnTouchListener(viewId,listener);
         return this;
     }
 
     public CommonViewHolder setOnLongClickListener(int viewId,
                                              View.OnLongClickListener listener)
     {
-        View view = findView(viewId);
-        view.setOnLongClickListener(listener);
+       viewHolderImpl.setOnLongClickListener(viewId,listener);
         return this;
     }
 
