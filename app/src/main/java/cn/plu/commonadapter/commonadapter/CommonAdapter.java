@@ -8,7 +8,8 @@ import android.widget.BaseAdapter;
 
 import java.util.List;
 
-/**
+
+/**baseAdapter的通用类　继承该类实现bindData方法即可
  * Created by lily on 15-12-8.
  */
 public  abstract  class CommonAdapter<T> extends BaseAdapter {
@@ -18,6 +19,31 @@ public  abstract  class CommonAdapter<T> extends BaseAdapter {
     protected List<T> mDatas;
     protected LayoutInflater mInflater;
     private int layoutId;
+    ItemInterface<T> itemInterface;
+
+    ViewStubController viewStubController;
+
+    protected int columnCount=1;
+
+    public void setColumnCount(int columnCount) {
+        this.columnCount = columnCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
+    }
+
+    public interface ItemInterface<T>{
+        T getItem(int index,int pos);
+    }
+
+    protected void setItemInterface(ItemInterface<T> itemInterface) {
+        this.itemInterface = itemInterface;
+    }
+
+    public void setViewStubController(ViewStubController viewStubController) {
+        this.viewStubController = viewStubController;
+    }
 
     public CommonAdapter(Context context, List<T> datas, int layoutId)
     {
@@ -30,7 +56,13 @@ public  abstract  class CommonAdapter<T> extends BaseAdapter {
     @Override
     public int getCount()
     {
-        return mDatas.size();
+        if (getColumnCount()>1) {
+            int yushu = mDatas.size() % 2;
+            return mDatas == null ? 0 : yushu == 0 ? mDatas.size() / columnCount : mDatas.size() / columnCount + 1;
+        }else{
+            return mDatas==null?0:mDatas.size();
+        }
+
     }
 
     @Override
@@ -50,9 +82,24 @@ public  abstract  class CommonAdapter<T> extends BaseAdapter {
     {
         CommonViewHolder holder = CommonViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
-        bindData(holder, getItem(position));
+        if (viewStubController!=null){
+            viewStubController.fillInflateView(holder,position);
+        }
+        bindData(holder, position);
         return holder.getConvertView();
     }
 
-    public abstract void bindData(CommonViewHolder holder, T t);
+    /**
+     * 绑定数据
+     * @param holder　view的holder类　
+     * @param t　单个数据源
+     */
+    public abstract void bindData(CommonViewHolder holder, int pos);
+
+    public interface ViewStubController{
+        //View getView(CommonViewHolder commonViewHolder);
+        void fillInflateView(CommonViewHolder commonViewHolder,int pos);
+
+
+    }
 }

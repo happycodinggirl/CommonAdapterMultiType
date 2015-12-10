@@ -28,6 +28,11 @@ public class SimpleRecycleViewAdapter extends RecycleAdapter<Item> {
     }
 
     @Override
+    public void bindData(RecycleViewHolder recycleViewHolder, int pos) {
+
+    }
+
+    @Override
     public int getItemViewType(int position) {
         if (position%2==0) {
             return 0;
@@ -38,7 +43,7 @@ public class SimpleRecycleViewAdapter extends RecycleAdapter<Item> {
 
 
 
-    @Override
+   /* @Override
     public void bindData(RecycleViewHolder recycleViewHolder, Item item) {
         int layoutRes=recycleViewHolder.getLayoutId();
         switch (layoutRes){
@@ -51,7 +56,7 @@ public class SimpleRecycleViewAdapter extends RecycleAdapter<Item> {
         }
 
     }
-
+*/
    /* @Override
     public int getItemViewType(int position) {
        *//* Item item=dataList.get(position);

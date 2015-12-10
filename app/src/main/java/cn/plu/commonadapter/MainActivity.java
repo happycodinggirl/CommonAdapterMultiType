@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
+import android.widget.*;
 
 
 import java.util.ArrayList;
@@ -24,20 +24,24 @@ public class MainActivity extends AppCompatActivity{
         mDatas = new ArrayList<>();
         initDatas();
 
-        //ListView listview= (ListView) findViewById(R.id.listview);
+        ListView listview= (ListView) findViewById(R.id.listview);
+        MSimpleAdapter adapter=new MSimpleAdapter(MainActivity.this,mDatas,R.layout.item);
+        ViewStubAdapter viewStubAdapter=new ViewStubAdapter(MainActivity.this,mDatas,R.layout.item);
+      //  adapter.setColumnCount(2);
+        listview.setAdapter(viewStubAdapter);
        /* CommonAdapter mutiTypeAdapter=new MutiTypeAdapter(MainActivity.this,dataList);
         listview.setAdapter(mutiTypeAdapter);*/
      /* ChatAdapter chatAdapter=new ChatAdapter(MainActivity.this, mDatas);
         getListView().setAdapter(chatAdapter);*/
         //listview.setAdapter(chatAdapter);
-        RecyclerView recyclerView= (RecyclerView) findViewById(R.id.recycleview);
+       /* RecyclerView recyclerView= (RecyclerView) findViewById(R.id.recycleview);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MainActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         SimpleRecycleViewAdapter simpleRecycleViewAdapter=new SimpleRecycleViewAdapter(MainActivity.this,mDatas);
         recyclerView.setAdapter(simpleRecycleViewAdapter);
-
+*/
 
        /* CommonAdapter adapter=new ChatAdapter(MainActivity.this,mDatas);
 
@@ -144,12 +148,14 @@ public class MainActivity extends AppCompatActivity{
                 null, false);
         mDatas.add(msg); msg = new Item(R.drawable.xiaohei, "xiaohei", "35 ",
                 null, false);
-        mDatas.add(msg); msg = new Item(R.drawable.xiaohei, "xiaohei", "36 ",
+        mDatas.add(msg);
+        msg = new Item(R.drawable.xiaohei, "xiaohei", "36 ",
                 null, false);
-        mDatas.add(msg); msg = new Item(R.drawable.xiaohei, "xiaohei", "37 ",
+        mDatas.add(msg);
+        msg = new Item(R.drawable.xiaohei, "xiaohei", "37 ",
                 null, false);
-        mDatas.add(msg); msg = new Item(R.drawable.xiaohei, "xiaohei", "38 ",
-                null, false);
+       /* mDatas.add(msg); msg = new Item(R.drawable.xiaohei, "xiaohei", "38 ",
+                null, false);*/
         mDatas.add(msg);
 
     }

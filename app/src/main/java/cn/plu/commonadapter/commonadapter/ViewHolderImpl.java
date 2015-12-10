@@ -13,6 +13,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.animation.AlphaAnimation;
 import android.widget.Checkable;
 import android.widget.ImageView;
@@ -22,7 +23,7 @@ import android.widget.TextView;
 
 
 
-/**
+/**viewHolder真正实现类
  * Created by lily on 15-12-8.
  */
 public class ViewHolderImpl {
@@ -31,6 +32,10 @@ public class ViewHolderImpl {
     private View mConvertView;
     private Context mContext;
     private int mLayoutId;
+
+    public ViewStub viewStub;
+
+    public View inflatedView;
 
     public ViewHolderImpl(Holderable holderable,Context context, ViewGroup parent, int layoutId,
                             int position)
@@ -51,6 +56,15 @@ public class ViewHolderImpl {
         this.viewArray = new SparseArray<View>();
     }
 
+
+    public View getInflatedView() {
+        return inflatedView;
+    }
+
+    public void setInflatedView(View inflatedView) {
+        this.inflatedView = inflatedView;
+    }
+
     boolean hasViewStub;
 
 
@@ -65,7 +79,24 @@ public class ViewHolderImpl {
         }
         return (T) view;
     }
+    public <T extends View> T findView(View parent,int resId){
+        View view=viewArray.get(resId);
+        if (view==null){
+            view=parent.findViewById(resId);
+            Log.v("PLU","0====FIND VIEW BY ID ");
+            viewArray.put(resId,view);
+            return (T) view;
+        }
+        return (T) view;
+    }
 
+
+    public void setText(int parentId,int resId,String content){
+        View parent=findView(parentId);
+        TextView textView=findView(parent,resId);
+        //Log.v("TAG","-----TEXTVIEW IS "+textView);
+        textView.setText(content);
+    }
     public void setText(int resId,String content){
         TextView textView=findView(resId);
         //Log.v("TAG","-----TEXTVIEW IS "+textView);
@@ -156,8 +187,16 @@ public class ViewHolderImpl {
 
     }
 
+    public void  setVisible(int parentId,int viewId, boolean visible)
+    {
+
+        View view = findView(findView(parentId),viewId);
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+
+    }
     public void  setVisible(int viewId, boolean visible)
     {
+
         View view = findView(viewId);
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
 

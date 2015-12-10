@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-/**
+/**具有多种类型view的baseAdapter继承此类
  * Created by lily on 15-12-8.
  */
 public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T> {
@@ -17,8 +17,6 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T> {
         super(context, datas, -1);
         mMultiItemTypeSupport =mutiTypeInterface;
     }
-
-
 
 
 
@@ -47,7 +45,7 @@ public abstract  class MutiTypeAdapter<T> extends CommonAdapter<T> {
                 getItem(position));
         CommonViewHolder viewHolder = CommonViewHolder.get(mContext, convertView, parent,
                 layoutId, position);
-        bindData(viewHolder, getItem(position));
+        bindData(viewHolder,position);
         return viewHolder.getConvertView();
     }
 

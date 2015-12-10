@@ -7,15 +7,19 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 
 
-/**
+/**baseAdapter的通用ViewHolder
  * Created by lily on 15-12-8.
  */
 public class CommonViewHolder implements  Holderable{
 
+    /**
+     * abslistview和recycleview桥接的实现类
+     */
     ViewHolderImpl viewHolderImpl;
 
     public CommonViewHolder(Context context, ViewGroup parent, int layoutId,
@@ -38,6 +42,19 @@ public class CommonViewHolder implements  Holderable{
             return holder;
         }
     }
+
+    public ViewStub getViewStub(){
+        return viewHolderImpl.viewStub;
+    }
+
+    public View getInflateView(){
+        return viewHolderImpl.getInflatedView();
+    }
+
+    public void setInflateView(View view){
+        viewHolderImpl.setInflatedView(view);
+    }
+
 
 
     public int getLayoutId(){
@@ -72,6 +89,19 @@ public class CommonViewHolder implements  Holderable{
     public CommonViewHolder setText(int viewId, String text)
     {
          viewHolderImpl.setText(viewId,text);
+        return this;
+
+    }
+    /**
+     * 设置TextView的值
+     *
+     * @param viewId
+     * @param text
+     * @return
+     */
+    public CommonViewHolder setText(int parentRes,int viewId, String text)
+    {
+         viewHolderImpl.setText(parentRes,viewId,text);
         return this;
 
     }
@@ -129,6 +159,11 @@ public class CommonViewHolder implements  Holderable{
     public CommonViewHolder setVisible(int viewId, boolean visible)
     {
         viewHolderImpl.setVisible(viewId,visible);
+        return this;
+    }
+    public CommonViewHolder setVisible(int parentId,int viewId, boolean visible)
+    {
+        viewHolderImpl.setVisible(parentId,viewId,visible);
         return this;
     }
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-/**
+/**recycleview的adapter的通用类
  * Created by lily on 15-12-8.
  */
 public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleViewHolder> {
@@ -36,7 +36,7 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
 
     @Override
     public void onBindViewHolder(RecycleViewHolder recycleViewHolder, int i) {
-            bindData(recycleViewHolder,getItem(i));
+            bindData(recycleViewHolder,i);
     }
 
     @Override
@@ -45,5 +45,5 @@ public abstract class RecycleAdapter<T> extends RecyclerView.Adapter<RecycleView
         return count;
     }
 
-    public abstract void bindData(RecycleViewHolder recycleViewHolder,T item);
+    public abstract void bindData(RecycleViewHolder recycleViewHolder,int pos);
 }

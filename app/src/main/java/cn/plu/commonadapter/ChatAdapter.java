@@ -44,7 +44,7 @@ public class ChatAdapter extends MutiTypeAdapter<Item> {
         });
     }
 
-    @Override
+   /* @Override
     public void bindData(CommonViewHolder holder, Item chatMessage)
     {
 
@@ -53,15 +53,20 @@ public class ChatAdapter extends MutiTypeAdapter<Item> {
             case R.layout.item:
                 holder.setText(R.id.textview, chatMessage.getContent());
                // holder.setText(R.id.textview, chatMessage.getName());
-              /*  holder.setText(R.id.chat_from_name, chatMessage.getName());
-                holder.setImageResource(R.id.chat_from_icon, chatMessage.getIcon());*/
+              *//*  holder.setText(R.id.chat_from_name, chatMessage.getName());
+                holder.setImageResource(R.id.chat_from_icon, chatMessage.getIcon());*//*
                 break;
             case R.layout.item1:
                 holder.setText(R.id.textview, chatMessage.getContent());
                // holder.setText(R.id.textview, chatMessage.getName());
-              /*  holder.setText(R.id.chat_send_name, chatMessage.getName());
-                holder.setImageResource(R.id.chat_send_icon, chatMessage.getIcon());*/
+              *//*  holder.setText(R.id.chat_send_name, chatMessage.getName());
+                holder.setImageResource(R.id.chat_send_icon, chatMessage.getIcon());*//*
                 break;
         }
+    }*/
+
+    @Override
+    public void bindData(CommonViewHolder holder, int pos) {
+
     }
 }
